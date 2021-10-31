@@ -38,7 +38,7 @@ pip install fake-store
 You can find the latest version to ...
 
 ```bash
-git clone https://github.com/FabienArcellier/blueprint-library-pip.git
+git clone https://github.com/FabienArcellier/fake-store.git
 ```
 
 ## Usage
@@ -57,11 +57,11 @@ fake_store.bind_class(Pet.__name__, Pet)
 Any objects that contains `_class: Pet` in definition will be instanciated as `Pet`
 
 ```yaml
-- _class: Pet
+- __class: Pet
   name: "Ronny"
   status: available
 
-- _class: Pet
+- __class: Pet
   name: "Crane"
   status: unavailable
 ```
@@ -76,7 +76,11 @@ class Pet:
         pass
 ```
 
+look at [examples/nested_fake_store.py](examples/nested_fake_store.py)
+
 ### use a factory instead of __init__ method
+
+see [examples/factory_fake_store.py](examples/factory_fake_store.py)
 
 ## Developper guideline
 

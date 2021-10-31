@@ -6,7 +6,7 @@ activate: ## activate the virtualenv associate with this project
 	pipenv shell
 
 .PHONY: ci
-ci : lint tests ## run continuous integration process
+ci : lint tests run_examples ## run continuous integration process
 
 .PHONY: coverage
 coverage: coverage_run coverage_html ## output the code coverage in htmlcov/index.html
@@ -48,6 +48,11 @@ install_requirements: ## install pip requirements based on requirements.txt
 .PHONY: lint
 lint: ## run pylint
 	pipenv run pylint --rcfile=.pylintrc $(APPLICATION_MODULE)
+
+.PHONY: run_examples
+run_examples: ## run only unit tests
+	cd examples; pipenv run python nested_fake_store.py
+	cd examples; pipenv run python factory_fake_store.py
 
 .PHONY: tests
 tests: tests_units ## run automatic tests

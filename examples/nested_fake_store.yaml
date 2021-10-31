@@ -1,0 +1,13 @@
+- __class: Pet
+  name: "Ronny"
+  status: available
+  store:
+      __class: Store
+      city: New York
+
+- __class: Pet
+  name: "Crane"
+  status: unavailable
+  store:
+      __class: Store
+      city: Paris

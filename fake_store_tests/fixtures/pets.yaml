@@ -1,0 +1,7 @@
+- __class: Pet
+  name: "Ronny"
+  status: available
+
+- __class: Pet
+  name: "Crane"
+  status: unavailable
