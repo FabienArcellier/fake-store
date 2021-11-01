@@ -12,7 +12,7 @@ This is the ideal library for building your fake server that replaces your datab
 class FakePetRepository:
 
     def __init__(self):
-        self._store: List[Pet] = fake_store.load(Pet, "pet.yml")
+        self._store: List[Pet] = fake_store.load_collection(Pet, "pet.yml")
 
     def store(self, pet: Pet):
         self._store.append(pet)
@@ -20,12 +20,13 @@ class FakePetRepository:
     ...
 ```
 
-La librairie prends en charge pour vous :
+The librarie takes care of :
 
 * loading nested object inside each other
 * converting objects to their native python type
 * take controle of objects generation through a factory
-* works well with dataclass and attrs
+* works well with ``dataclass`` and ``attrs``
+* implement a share memory store and resettable memory store to share datasets between repositories
 
 ## Getting started
 
@@ -66,7 +67,7 @@ Any objects that contains `_class: Pet` in definition will be instanciated as `P
   status: unavailable
 ```
 
-The class Pet has to defined it's __init__ method with the 2 keyword arguments. If an argument is missing or
+The class Pet has to defined it's ``__init__`` method with the 2 keyword arguments. If an argument is missing or
 doesn't exist in the construct, it will raise an error
 
 ```python
@@ -78,9 +79,24 @@ class Pet:
 
 look at [examples/nested_fake_store.py](examples/nested_fake_store.py)
 
-### use a factory instead of __init__ method
+### use a factory method instead of __init__ method
 
 see [examples/factory_fake_store.py](examples/factory_fake_store.py)
+
+### use a memory store to share the same data between several repository
+
+see [examples/memory_store.py](examples/memory_store.py)
+
+### use a resettable memory store to share the same data between several repository on automatic test
+
+Data loading can become slower and slower over time. If it is played between each test, it adds
+1s of overhead on every test. In a CI or on the development workstation, it is interesting to avoid
+this loading time.
+
+The ``ResettableStore`` class allows between each test to restore the content of the store to its original state in one step
+negligible with the call to `reset_store`.
+
+see [examples/resettable_store.py](examples/resettable_store.py)
 
 ## Developper guideline
 
